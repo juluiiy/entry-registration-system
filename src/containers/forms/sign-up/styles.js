@@ -12,7 +12,7 @@ export const styles = {
     boxShadow: 1,
   },
   avatar: {
-    margin: 1,
+    m: 1,
     backgroundColor: "secondary.main",
   },
   
