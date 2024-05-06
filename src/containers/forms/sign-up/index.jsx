@@ -98,7 +98,7 @@ const SignUpForm = () => {
           error={!!errors.email}
           helperText={errors.email && errors.email[0]}
         />
-          <TextField
+        <TextField
           margin="normal"
           required
           fullWidth
