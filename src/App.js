@@ -9,26 +9,27 @@ import SignInPage from "./pages/sign-in";
 import Home from "./pages/home";
 import Header from "./containers/header";
 import Footer from "./containers/footer";
+import CreateApplication from "./pages/create-application";
 
 const App = () => {
   return (
-    <Box
-      position="relative"
-      display="flex"
-      flexDirection="column"
-      minHeight="100vh"
-    >
+    <Router>
       <ProfileProvider>
+        <CssBaseline />
         <ApplicationsProvider>
-          <Router>
+          <Box
+            position="relative"
+            display="flex"
+            flexDirection="column"
+            minHeight="100vh"
+          >
             <Header />
-            <CssBaseline />
-            <Box sx={{ flexGrow: 1, bgcolor: "#f7f7f7", pt: "64px" }}>
+            <Box sx={{ flexGrow: 1, bgcolor: "#f7f7f7", pt: "100px" }}>
               <Container
                 maxWidth="lg"
                 sx={{
                   bgcolor: "white",
-                  py: "20px",
+                  py: "30px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -38,14 +39,18 @@ const App = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/sign-up" element={<SignUpPage />} />
                   <Route path="/sign-in" element={<SignInPage />} />
+                  <Route
+                    path="/create-application"
+                    element={<CreateApplication />}
+                  />
                 </Routes>
               </Container>
             </Box>
             <Footer />
-          </Router>
+          </Box>
         </ApplicationsProvider>
       </ProfileProvider>
-    </Box>
+    </Router>
   );
 };
 export default App;

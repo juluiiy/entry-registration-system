@@ -1,27 +1,34 @@
 import { Box, Typography } from "@mui/material";
 import DataTable from "../../containers/application-table";
+import PersonIcon from "@mui/icons-material/Person";
+import { styles } from "./styles";
 
 const Home = () => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
-      <Box sx={{ display: "flex", gap: 4, px: 3 }}>
-        <Box sx={{ maxWidth: "400px", maxHeight: "400px" }}>
-          <img
-            src="https://albertasafetyfirst.ca/wp-content/uploads/bb-plugin/cache/Fotolia_106071621_Subscription_Yearly_XXL_PLUS-square.jpg"
-            alt="user avatar"
-          />
+    <Box sx={styles.mainBox}>
+      <Box sx={styles.innerBox}>
+        <Box sx={styles.iconBox}>
+          <PersonIcon sx={styles.icon} />
         </Box>
-        <Box>
+        <Box sx={styles.typographyBox}>
           <Typography variant="h5">Гецянин Євгеній Григорійович</Typography>
-          <Box sx={{ display: "flex", gap: 3, color: "grey.600" }}>
-            <Typography variant="subtitle2">
-              eugene.hetsyanyn@gmail.com
-            </Typography>
-            <Typography variant="subtitle2">+380969339369</Typography>
+          <Box sx={styles.infoBox}>
+            <Box sx={styles.infoItem}>
+              <Typography color="grey.600">Пошта:</Typography>
+              <Typography>eugene.hetsyanyn@gmail.com</Typography>
+            </Box>
+            <Box sx={styles.infoItem}>
+              <Typography color="grey.600">Номер телефону:</Typography>
+              <Typography>+380 67 123 45 67</Typography>
+            </Box>
           </Box>
+          {/* <Box>
+          <Typography>Результати НМТ:</Typography>
+        </Box> */}
         </Box>
       </Box>
-      <Box>
+      <Box sx={styles.applicationBox}>
+        <Typography variant="h5"> Список поданих заявок</Typography>
         <DataTable />
       </Box>
     </Box>
