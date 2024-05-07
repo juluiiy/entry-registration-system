@@ -11,20 +11,5 @@ export const api = ky.create({
           `Bearer ${localStorage.getItem(LocalStorageKey.ACCESS_TOKEN)}`
         ),
     ],
-    afterResponse: [
-      async (req, _opts, res) => {
-        if (res.status === 401) {
-          try {
-            const token = await refreshToken();
-
-            req.headers.set("Authorization", `Bearer ${token}`);
-          } catch (e) {
-            Logger.error(e);
-          }
-        }
-
-        return res;
-      },
-    ],
   },
 });

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <AppBar position="fixed" variant="outlined" sx={{ bgcolor: "white" }}>
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Toolbar
           sx={{
             display: "flex",

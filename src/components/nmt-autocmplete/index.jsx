@@ -1,4 +1,5 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
+import { useCreateApplicationStore } from "../../store/createApplication";
 
 const nmtResults = [
   {
@@ -19,7 +20,13 @@ const nmtResults = [
   },
 ];
 
-const NmtAutocomplete = ({ application, handleNmtChange }) => {
+const NmtAutocomplete = () => {
+  const { setNmtResults, application, nmtError } = useCreateApplicationStore();
+  console.log(application);
+  const handleNmtChange = (event, newValue) => {
+    setNmtResults(newValue);
+  };
+
   return (
     <Stack spacing={1}>
       <Typography variant="h5">Результати нмт*</Typography>
@@ -30,6 +37,9 @@ const NmtAutocomplete = ({ application, handleNmtChange }) => {
         value={application.nmtResults}
         onChange={handleNmtChange}
         getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) =>
+          option.name === value.name && option.value === value.value
+        }
         renderInput={(params) => (
           <TextField
             {...params}
@@ -37,8 +47,8 @@ const NmtAutocomplete = ({ application, handleNmtChange }) => {
             variant="standard"
             label="НМТ результати (максимум 3)"
             placeholder="Виберіть предмети"
-            error={Boolean(application.error)}
-            helperText={application.error}
+            error={Boolean(nmtError)}
+            helperText={nmtError}
           />
         )}
       />

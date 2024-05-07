@@ -10,8 +10,17 @@ import Home from "./pages/home";
 import Header from "./containers/header";
 import Footer from "./containers/footer";
 import CreateApplication from "./pages/create-application";
+import { useUserStore } from "./store/user";
+import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
+  const logout = useUserStore((state) => state.logout);
+
+  useEffect(() => {
+    logout();
+  }, [logout]);
+
   return (
     <Router>
       <ProfileProvider>
@@ -26,7 +35,7 @@ const App = () => {
             <Header />
             <Box sx={{ flexGrow: 1, bgcolor: "#f7f7f7", pt: "100px" }}>
               <Container
-                maxWidth="lg"
+                maxWidth="xl"
                 sx={{
                   bgcolor: "white",
                   py: "30px",
@@ -50,6 +59,7 @@ const App = () => {
           </Box>
         </ApplicationsProvider>
       </ProfileProvider>
+      <Toaster />
     </Router>
   );
 };

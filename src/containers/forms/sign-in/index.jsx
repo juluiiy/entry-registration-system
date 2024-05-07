@@ -13,6 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { styles } from "./styles";
 import { signInValidationSchema } from "../../../helpers/validation-schemas";
+import toast from "react-hot-toast";
 
 const SignInForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -97,7 +98,13 @@ const SignInForm = () => {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <Button type="submit" fullWidth variant="contained" sx={styles.button}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={styles.button}
+          onClick={() => toast.error("Here is your toast.")}
+        >
           Sign In
         </Button>
         <Grid container>
