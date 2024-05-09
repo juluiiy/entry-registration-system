@@ -25,15 +25,13 @@ const rows = [
 
 export default function DataTable() {
   return (
-    <div style={{ width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        checkboxSelection
-        hideFooterPagination
-        disableAutosize
-        disableColumnResize
-      />
-    </div>
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      checkboxSelection
+      hideFooterPagination
+      disableAutosize
+      disableColumnResize
+    />
   );
 }

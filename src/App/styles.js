@@ -12,8 +12,8 @@ export const styles = {
     pb: "50px",
   },
   container: {
-
     bgcolor: "white",
+    minHeight: "650px",
     py: "30px",
     display: "flex",
     flexDirection: "column",

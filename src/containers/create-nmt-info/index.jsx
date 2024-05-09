@@ -14,21 +14,24 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
+import { useUserStore } from "../../store/user";
 
 const CreateNmtInfo = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useUserStore();
 
   const [modalData, setModalData] = useState({
-    row1: { label: "", value: "" },
-    row2: { label: "", value: "" },
-    row3: { label: "", value: "" },
-    row4: { label: "", value: "" },
+    row1: user.nmtResults[0] || { name: "", value: "" },
+    row2: user.nmtResults[1] || { name: "", value: "" },
+    row3: user.nmtResults[2] || { name: "", value: "" },
+    row4: user.nmtResults[3] || { name: "", value: "" },
   });
+
   const [savedData, setSavedData] = useState({
-    row1: { label: "", value: "" },
-    row2: { label: "", value: "" },
-    row3: { label: "", value: "" },
-    row4: { label: "", value: "" },
+    row1: user.nmtResults[0] || { name: "", value: "" },
+    row2: user.nmtResults[1] || { name: "", value: "" },
+    row3: user.nmtResults[2] || { name: "", value: "" },
+    row4: user.nmtResults[3] || { name: "", value: "" },
   });
 
   const handleChange = (rowKey, field) => (event) => {
@@ -47,9 +50,7 @@ const CreateNmtInfo = () => {
     setOpen(false);
   };
 
-  const hasData = Object.values(savedData).some(
-    (row) => row.label && row.value
-  );
+  const hasData = Object.values(savedData).some((row) => row.name && row.value);
 
   return (
     <>
@@ -61,8 +62,8 @@ const CreateNmtInfo = () => {
               <Box key={rowKey}>
                 <TextField
                   label="Назва предмету"
-                  value={modalData[rowKey].label}
-                  onChange={handleChange(rowKey, "label")}
+                  value={modalData[rowKey].name}
+                  onChange={handleChange(rowKey, "name")}
                   required
                   sx={{ my: 0.5, ml: 0, mr: 1 }}
                 />
@@ -93,7 +94,7 @@ const CreateNmtInfo = () => {
             <TableBody>
               {Object.values(savedData).map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell>{row.label}</TableCell>
+                  <TableCell>{row.name}</TableCell>
                   <TableCell>{row.value}</TableCell>
                 </TableRow>
               ))}

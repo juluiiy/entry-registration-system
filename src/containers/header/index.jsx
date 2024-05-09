@@ -7,10 +7,17 @@ import Button from "@mui/material/Button";
 
 import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useUserStore } from "../../store/user";
 
 const Header = () => {
-  //TODO: add logic to hide sign-in button if user is logged in.
-  //TODO: If user is logged in, show a button to log out.
+  const { user, logout } = useUserStore();
+
+  const logoutButton = user && (
+    <Button variant="contained" onClick={logout}>
+      Вийти
+    </Button>
+  );
+
   return (
     <AppBar position="fixed" variant="outlined" sx={{ bgcolor: "white" }}>
       <Container maxWidth="xl">
@@ -31,9 +38,7 @@ const Header = () => {
               </Link>
             </Box>
           </Typography>
-          <Link to="/sign-in">
-            <Button variant="contained">Увійти</Button>
-          </Link>
+          {logoutButton}
         </Toolbar>
       </Container>
     </AppBar>

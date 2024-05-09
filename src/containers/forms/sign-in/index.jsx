@@ -10,22 +10,21 @@ import {
 import WavingHandIcon from "@mui/icons-material/WavingHand";
 import { styles } from "./styles";
 import { signInValidationSchema } from "../../../helpers/validation-schemas";
-import toast from "react-hot-toast";
+import { useUserStore } from "../../../store/user";
+import { useNavigate } from "react-router-dom";
 
 const SignInForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-
+  const { setToken } = useUserStore();
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const result = signInValidationSchema.safeParse(form);
-    if (result.success) {
-      console.log(result.data);
-    } else {
-      setErrors(result.error.formErrors.fieldErrors);
-    }
-  };
+    // const result = signInValidationSchema.safeParse(form);
 
+    setToken("accessToken");
+    navigate("/");
+  };
   const updateForm = (name, value) => {
     const updatedForm = {
       ...form,
@@ -92,13 +91,7 @@ const SignInForm = () => {
           helperText={errors.password && errors.password[0]}
         />
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={styles.button}
-          onClick={() => toast.error("Here is your toast.")}
-        >
+        <Button type="submit" fullWidth variant="contained" sx={styles.button}>
           Увійти
         </Button>
 

@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store/user";
 
-const GuestWrapper = ({ user, children }) => {
+const GuestWrapper = ({ children }) => {
   const navigate = useNavigate();
+  const { user } = useUserStore();
 
   useEffect(() => {
     if (user) {
