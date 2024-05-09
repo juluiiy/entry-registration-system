@@ -9,6 +9,8 @@ import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  //TODO: add logic to hide sign-in button if user is logged in.
+  //TODO: If user is logged in, show a button to log out.
   return (
     <AppBar position="fixed" variant="outlined" sx={{ bgcolor: "white" }}>
       <Container maxWidth="xl">

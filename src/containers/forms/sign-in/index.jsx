@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
   Link,
   TextField,
   Avatar,
   Typography,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import WavingHandIcon from "@mui/icons-material/WavingHand";
 import { styles } from "./styles";
 import { signInValidationSchema } from "../../../helpers/validation-schemas";
 import toast from "react-hot-toast";
@@ -59,7 +56,7 @@ const SignInForm = () => {
   return (
     <Box sx={styles.box}>
       <Avatar sx={styles.avatar}>
-        <LockOutlinedIcon />
+        <WavingHandIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         Увійти
@@ -71,7 +68,7 @@ const SignInForm = () => {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label="Пошта"
           name="email"
           autoComplete="email"
           autoFocus
@@ -85,7 +82,7 @@ const SignInForm = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label="Пароль"
           type="password"
           id="password"
           autoComplete="current-password"
@@ -94,10 +91,7 @@ const SignInForm = () => {
           error={!!errors.password}
           helperText={errors.password && errors.password[0]}
         />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
+
         <Button
           type="submit"
           fullWidth
@@ -105,20 +99,12 @@ const SignInForm = () => {
           sx={styles.button}
           onClick={() => toast.error("Here is your toast.")}
         >
-          Sign In
+          Увійти
         </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Forgot password?
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link href="#" variant="body2">
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Grid>
-        </Grid>
+
+        <Link href="/sign-up">
+          <Typography>Немає аккаунту? Зареєструйтесь</Typography>
+        </Link>
       </Box>
     </Box>
   );

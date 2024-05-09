@@ -3,7 +3,7 @@ export const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "450px",
+    width: "450px",
     m: "100px auto",
     p: "20px 20px",
     border: 1,
@@ -13,7 +13,7 @@ export const styles = {
   },
   avatar: {
     m: 1,
-    backgroundColor: "secondary.main",
+    backgroundColor: "primary.main",
   },
   
   button: {

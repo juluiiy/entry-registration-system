@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
   Link,
   TextField,
   Avatar,
@@ -90,7 +87,7 @@ const SignUpForm = () => {
           required
           fullWidth
           id="email"
-          label="E-mail"
+          label="Пошта"
           name="email"
           autoComplete="email"
           value={form.email}
@@ -140,20 +137,13 @@ const SignUpForm = () => {
           helperText={errors.confirmPassword && errors.confirmPassword[0]}
         />
 
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
         <Button type="submit" fullWidth variant="contained" sx={styles.button}>
-          Register
+          Зареєструватися
         </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Already have an account? Sign In
-            </Link>
-          </Grid>
-        </Grid>
+
+        <Link href="/sign-in" variant="body2">
+          Вже маєте аккаунт? Увійти
+        </Link>
       </Box>
     </Box>
   );

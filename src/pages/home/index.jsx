@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import DataTable from "../../containers/application-table";
 import PersonIcon from "@mui/icons-material/Person";
 import { styles } from "./styles";
+import CreateNmtInfo from "../../containers/create-nmt-info";
 
 const Home = () => {
   return (
@@ -22,9 +23,7 @@ const Home = () => {
               <Typography>+380 67 123 45 67</Typography>
             </Box>
           </Box>
-          {/* <Box>
-          <Typography>Результати НМТ:</Typography>
-        </Box> */}
+          <CreateNmtInfo />
         </Box>
       </Box>
       <Box sx={styles.applicationBox}>
