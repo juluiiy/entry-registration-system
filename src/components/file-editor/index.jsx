@@ -1,5 +1,6 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
+
 import { fileEditorConfig } from "../../constants/file-editor";
 
 const FileEditor = ({ editorValue, handleEditorChange }) => {

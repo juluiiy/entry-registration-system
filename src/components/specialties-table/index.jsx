@@ -1,19 +1,11 @@
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { specialities } from "../../constants/specialities";
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { Autocomplete, Box, Stack, TextField, Typography } from "@mui/material";
+
 import { useCreateApplicationStore } from "../../store/createApplication";
+import { specialities } from "../../constants/specialities";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
   { field: "name", headerName: "Name", width: 200 },
   { field: "number", headerName: "Number", width: 100 },
   { field: "numberOfCurses", headerName: "Number of Curses", width: 150 },
@@ -26,24 +18,20 @@ const columns = [
   { field: "faculty", headerName: "Faculty", width: 200 },
 ];
 
-const SpecialitiesTable = () => {
-  const { setSpeciality } = useCreateApplicationStore();
+const SpecialtiesTable = () => {
+  const { setSpecialty } = useCreateApplicationStore();
 
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState(null);
 
   const faculties = [...new Set(specialities.map((item) => item.faculty))];
 
-  const handleSubmit = () => {
-    if (rowSelectionModel.length) {
-      toast.success(
-        `Selected speciality: ${specialities[rowSelectionModel].name}`
-      );
-      setSpeciality(specialities[rowSelectionModel].name);
-    } else {
-      toast.error("No speciality selected");
+  useEffect(() => {
+    if (rowSelectionModel.length > 0) {
+      const selectedSpecialityId = rowSelectionModel[0];
+      setSpecialty(selectedSpecialityId);
     }
-  };
+  }, [rowSelectionModel, setSpecialty]);
 
   return (
     <Stack spacing={4}>
@@ -66,7 +54,6 @@ const SpecialitiesTable = () => {
           />
         )}
       />
-
       <Box maxWidth="lg">
         <Stack spacing={2}>
           <DataGrid
@@ -87,20 +74,10 @@ const SpecialitiesTable = () => {
             }}
             rowSelectionModel={rowSelectionModel}
           />
-          <Box>
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={handleSubmit}
-            >
-              Тест
-            </Button>
-          </Box>
         </Stack>
       </Box>
     </Stack>
   );
 };
 
-export default SpecialitiesTable;
+export default SpecialtiesTable;

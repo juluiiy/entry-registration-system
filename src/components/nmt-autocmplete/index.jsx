@@ -20,9 +20,10 @@ const nmtResults = [
   },
 ];
 
-const NmtAutocomplete = () => {
+const NmtAutocomplete = ({ value }) => {
+  console.log(value, "auto");
   const { setNmtResults, application, nmtError } = useCreateApplicationStore();
-  console.log(application);
+  console.log(nmtResults, "auto");
   const handleNmtChange = (event, newValue) => {
     setNmtResults(newValue);
   };
@@ -33,10 +34,10 @@ const NmtAutocomplete = () => {
       <Autocomplete
         multiple
         id="tags-standard"
-        options={nmtResults}
+        options={value[0]}
         value={application.nmtResults}
         onChange={handleNmtChange}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => `${option.name} - ${option.value}`}
         isOptionEqualToValue={(option, value) =>
           option.name === value.name && option.value === value.value
         }

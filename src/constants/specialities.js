@@ -1,6 +1,6 @@
 export const specialities = [
   {
-    id: "1",
+    id: "12",
     name: "Інженерія програмного забезпечення",
     number: 121,
     numberOfCurses: 4,
@@ -26,7 +26,7 @@ export const specialities = [
     faculty: "Факультет Інформатики",
   },
   {
-    id: "3",
+    id: "44",
     name: "Інженерія програмного забезпечення",
     number: 121,
     numberOfCurses: 4,
@@ -65,7 +65,7 @@ export const specialities = [
     faculty: "Комп'ютерні науки",
   },
   {
-    id: "6",
+    id: "3",
     name: "Комп'ютерні науки",
     number: 121,
     numberOfCurses: 4,
@@ -78,7 +78,7 @@ export const specialities = [
     faculty: "Комп'ютерні науки",
   },
   {
-    id: "7",
+    id: "1",
     name: "Інженерія програмного забезпечення",
     number: 121,
     numberOfCurses: 4,

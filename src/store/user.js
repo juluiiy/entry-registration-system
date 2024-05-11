@@ -16,7 +16,7 @@ export const useUserStore = create(
     {
       name: "ACCESS_TOKEN",
       storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({ accessToken: state.accessToken })
+      partialize: (state) => ({ accessToken: state.accessToken }),
     }
   )
 );

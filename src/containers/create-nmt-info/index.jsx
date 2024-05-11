@@ -18,8 +18,15 @@ import { useUserStore } from "../../store/user";
 
 const CreateNmtInfo = () => {
   const [open, setOpen] = useState(false);
-  const { user } = useUserStore();
 
+  const transformNmtResults = (nmtResults) => {
+    return Object.values(nmtResults).map((row) => ({
+      name: row.name,
+      value: row.value,
+    }));
+  };
+
+  const { user } = useUserStore();
   const [modalData, setModalData] = useState({
     row1: user.nmtResults[0] || { name: "", value: "" },
     row2: user.nmtResults[1] || { name: "", value: "" },
@@ -48,9 +55,11 @@ const CreateNmtInfo = () => {
     event.preventDefault();
     setSavedData(modalData);
     setOpen(false);
-  };
 
-  const hasData = Object.values(savedData).some((row) => row.name && row.value);
+    user.nmtResults.push(transformNmtResults(modalData));
+  };
+  console.log(user.nmtResults);
+  const hasData = Object.values(user.nmtResults[0]).some((row) => row.name && row.value);
 
   return (
     <>
@@ -92,7 +101,7 @@ const CreateNmtInfo = () => {
         <TableContainer>
           <Table>
             <TableBody>
-              {Object.values(savedData).map((row, index) => (
+              {Object.values(user.nmtResults[0]).map((row, index) => (
                 <TableRow key={index}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.value}</TableCell>

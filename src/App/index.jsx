@@ -24,28 +24,7 @@ const App = () => {
           email: "example@email.com",
           phoneNumber: "+380986606073",
           avatar: null,
-          nmtResults: [
-            {
-              id: "4c0b28b4-fd5a-468f-95b4-2ad82b629efd",
-              name: "Математика",
-              value: 192,
-            },
-            {
-              id: "77272987-acf1-4228-b262-8539a1efd5c0",
-              name: "Українська мова",
-              value: 163,
-            },
-            {
-              id: "693333b1-50a9-4fb6-89f2-d45955559a33",
-              name: "Історія України",
-              value: 150,
-            },
-            {
-              id: "a6a0b037-16bf-48d5-ab76-715dab5e3f2c",
-              name: "Англійська мова",
-              value: 196,
-            },
-          ],
+          nmtResults: [],
           applications: [],
         });
       }, 2000);

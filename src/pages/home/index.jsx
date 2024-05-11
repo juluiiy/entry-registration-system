@@ -1,12 +1,29 @@
-import { Box, Typography } from "@mui/material";
-import DataTable from "../../containers/application-table";
+import { Box, Button, Typography } from "@mui/material";
+import ApplicationTable from "../../containers/application-table";
 import PersonIcon from "@mui/icons-material/Person";
 import { styles } from "./styles";
 import CreateNmtInfo from "../../containers/create-nmt-info";
 import { useUserStore } from "../../store/user";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { user } = useUserStore();
+
+  const applicationsOrLink = user.applications.length ? (
+    <>
+      <Typography variant="h5"> Список поданих заявок</Typography>
+      <ApplicationTable rows={user.applications} />
+    </>
+  ) : (
+    <Box sx={styles.noApplications}>
+      <Typography variant="h5">Ви ще не подали жодної заявки</Typography>
+      <Link to="create-application">
+        <Button variant="outlined" size="large">
+          Зробіть це!
+        </Button>
+      </Link>
+    </Box>
+  );
 
   return (
     <Box sx={styles.mainBox}>
@@ -29,10 +46,7 @@ const Home = () => {
           <CreateNmtInfo />
         </Box>
       </Box>
-      <Box sx={styles.applicationBox}>
-        <Typography variant="h5"> Список поданих заявок</Typography>
-        <DataTable />
-      </Box>
+      <Box sx={styles.applicationBox}>{applicationsOrLink}</Box>
     </Box>
   );
 };
