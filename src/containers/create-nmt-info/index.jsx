@@ -15,6 +15,24 @@ import {
   Stack,
 } from "@mui/material";
 import { useUserStore } from "../../store/user";
+const nmtResults = [
+  {
+    name: "Математика",
+    value: "100",
+  },
+  {
+    name: "Фізика",
+    value: "100",
+  },
+  {
+    name: "Іноземна мова",
+    value: "100",
+  },
+  {
+    name: "Українська мова",
+    value: "100",
+  },
+];
 
 const CreateNmtInfo = () => {
   const [open, setOpen] = useState(false);
@@ -34,13 +52,6 @@ const CreateNmtInfo = () => {
     row4: user.nmtResults[3] || { name: "", value: "" },
   });
 
-  const [savedData, setSavedData] = useState({
-    row1: user.nmtResults[0] || { name: "", value: "" },
-    row2: user.nmtResults[1] || { name: "", value: "" },
-    row3: user.nmtResults[2] || { name: "", value: "" },
-    row4: user.nmtResults[3] || { name: "", value: "" },
-  });
-
   const handleChange = (rowKey, field) => (event) => {
     setModalData({
       ...modalData,
@@ -53,13 +64,14 @@ const CreateNmtInfo = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSavedData(modalData);
     setOpen(false);
 
     user.nmtResults.push(transformNmtResults(modalData));
   };
   console.log(user.nmtResults);
-  const hasData = Object.values(user.nmtResults[0]).some((row) => row.name && row.value);
+  const hasData = Object.values(user.nmtResults[0] || []).some(
+    (row) => row.name && row.value
+  );
 
   return (
     <>
