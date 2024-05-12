@@ -21,4 +21,5 @@ export const styles = {
   infoBox: { display: "flex", flexDirection: "column", mt: 1 },
   infoItem: { display: "flex", gap: 1, fontSize: "16px" },
   applicationBox: { display: "flex", flexDirection: "column", gap: 2 },
+  createApplicationButton: { width: "100%" },
 };

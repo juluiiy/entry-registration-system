@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import {
   Box,
   Button,
@@ -8,8 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { styles } from "./styles";
+
+import { authService } from "../../../services/auth";
 import { registerValidationSchema } from "../../../helpers/validation-schemas";
+import { styles } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const [form, setForm] = useState({
@@ -17,17 +21,29 @@ const SignUpForm = () => {
     password: "",
     confirmPassword: "",
     phoneNumber: "",
-    fullName: "",
+    username: "",
   });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     const result = registerValidationSchema.safeParse(form);
+
     if (result.success) {
-      console.log(result.data);
-    } else {
-      setErrors(result.error.formErrors.fieldErrors);
+      const formCopy = { ...form };
+      delete formCopy.confirmPassword;
+
+      authService
+        .signUp(formCopy)
+        .then(() => {
+          toast.success("Ви успішно зареєструвались!");
+          navigate("/")
+        })
+        .catch(() => {
+          toast.error("Щось пішло не так!");
+        });
     }
   };
 
@@ -72,15 +88,15 @@ const SignUpForm = () => {
           margin="normal"
           required
           fullWidth
-          id="fullName"
+          id="username"
           label="ПІБ"
-          name="fullName"
+          name="username"
           autoComplete="name"
           autoFocus
-          value={form.fullName}
+          value={form.username}
           onChange={handleChange}
-          error={!!errors.fullName}
-          helperText={errors.fullName && errors.fullName[0]}
+          error={!!errors.username}
+          helperText={errors.username && errors.username[0]}
         />
         <TextField
           margin="normal"

@@ -1,12 +1,13 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
 import { Container } from "@mui/material";
-import { Link } from "react-router-dom";
+
 import { useUserStore } from "../../store/user";
 
 const Header = () => {
@@ -32,7 +33,7 @@ const Header = () => {
             <Box sx={{ width: 40, height: 40 }}>
               <Link to="/">
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2IbAh2H0Vdmumdzxru9EaOJ3N8oRwOT7kwmQGDGhz9A&s"
                   alt="logo"
                 />
               </Link>

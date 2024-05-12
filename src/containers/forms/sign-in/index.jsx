@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import {
   Box,
   Button,
@@ -8,23 +10,42 @@ import {
   Typography,
 } from "@mui/material";
 import WavingHandIcon from "@mui/icons-material/WavingHand";
-import { styles } from "./styles";
+
 import { signInValidationSchema } from "../../../helpers/validation-schemas";
 import { useUserStore } from "../../../store/user";
-import { useNavigate } from "react-router-dom";
+import { authService } from "../../../services/auth";
+import { styles } from "./styles";
 
 const SignInForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const { setToken } = useUserStore();
   const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const result = signInValidationSchema.safeParse(form);
+    const result = signInValidationSchema.safeParse(form);
 
-    setToken("accessToken");
+    if (result.success) {
+      authService
+        .signIn({
+          email: form.email,
+          password: form.password,
+        })
+        .then((data) => {
+          setToken(data);
+          toast.success("Ви успішно увійшли!");
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Щось пішло не так!");
+        });
+    }
+
     navigate("/");
   };
+
   const updateForm = (name, value) => {
     const updatedForm = {
       ...form,

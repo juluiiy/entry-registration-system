@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export const useCreateApplicationStore = create((set) => ({
   application: {
-    specialty: null,
+    specialtyId: null,
     nmtResults: [],
     motivationLetter: "",
   },
@@ -11,8 +11,8 @@ export const useCreateApplicationStore = create((set) => ({
     set((state) => ({
       application: { ...state.application, motivationLetter },
     })),
-  setSpecialty: (specialty) =>
-    set((state) => ({ application: { ...state.application, specialty } })),
+  setSpecialty: (specialtyId) =>
+    set((state) => ({ application: { ...state.application, specialtyId } })),
   setNmtResults: (nmtResults) => {
     if (nmtResults.length <= 3) {
       set((state) => ({

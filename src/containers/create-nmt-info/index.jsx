@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import {
   TextField,
   Button,
@@ -14,28 +15,14 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
+
 import { useUserStore } from "../../store/user";
-const nmtResults = [
-  {
-    name: "Математика",
-    value: "100",
-  },
-  {
-    name: "Фізика",
-    value: "100",
-  },
-  {
-    name: "Іноземна мова",
-    value: "100",
-  },
-  {
-    name: "Українська мова",
-    value: "100",
-  },
-];
+import { userService } from "../../services/user";
+import { getUserIdFromToken } from "../../helpers";
 
 const CreateNmtInfo = () => {
   const [open, setOpen] = useState(false);
+  const { user, accessToken, setUser } = useUserStore();
 
   const transformNmtResults = (nmtResults) => {
     return Object.values(nmtResults).map((row) => ({
@@ -44,7 +31,6 @@ const CreateNmtInfo = () => {
     }));
   };
 
-  const { user } = useUserStore();
   const [modalData, setModalData] = useState({
     row1: user.nmtResults[0] || { name: "", value: "" },
     row2: user.nmtResults[1] || { name: "", value: "" },
@@ -66,11 +52,40 @@ const CreateNmtInfo = () => {
     event.preventDefault();
     setOpen(false);
 
-    user.nmtResults.push(transformNmtResults(modalData));
+    const userId = getUserIdFromToken(accessToken);
+
+    userService
+      .addNmtResults(userId, transformNmtResults(modalData))
+      .then((data) => {
+        setUser(data);
+        toast.success("Дані успішно збережені!");
+      });
   };
-  console.log(user.nmtResults);
-  const hasData = Object.values(user.nmtResults[0] || []).some(
-    (row) => row.name && row.value
+
+  const hasData = user.nmtResults.length;
+
+  const buttonOrData = hasData ? (
+    <TableContainer>
+      <Table>
+        <TableBody>
+          {user.nmtResults.map((row, index) => (
+            <TableRow key={index}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  ) : (
+    <Stack mt={3}>
+      <Typography variant="h6" color="textSecondary" align="center">
+        Не вказані предмети
+      </Typography>
+      <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+        Внести дані
+      </Button>
+    </Stack>
   );
 
   return (
@@ -109,33 +124,7 @@ const CreateNmtInfo = () => {
           </form>
         </DialogContent>
       </Dialog>
-      {hasData ? (
-        <TableContainer>
-          <Table>
-            <TableBody>
-              {Object.values(user.nmtResults[0]).map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.value}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <Stack mt={3}>
-          <Typography variant="h6" color="textSecondary" align="center">
-            Не вказані предмети
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setOpen(true)}
-          >
-            Внести дані
-          </Button>
-        </Stack>
-      )}
+      {buttonOrData}
     </>
   );
 };

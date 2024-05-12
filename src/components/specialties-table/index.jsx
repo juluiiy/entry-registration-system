@@ -3,28 +3,41 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Autocomplete, Box, Stack, TextField, Typography } from "@mui/material";
 
 import { useCreateApplicationStore } from "../../store/createApplication";
-import { specialities } from "../../constants/specialities";
+import { facultyService } from "../../services/faculties";
 
 const columns = [
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "number", headerName: "Number", width: 100 },
-  { field: "numberOfCurses", headerName: "Number of Curses", width: 150 },
-  { field: "price", headerName: "Price", width: 100 },
-  { field: "avaliablePlaces", headerName: "Available Places", width: 150 },
-  { field: "totalPlaces", headerName: "Total Places", width: 130 },
-  { field: "budgetPlaces", headerName: "Budget Places", width: 130 },
-  { field: "contractPlaces", headerName: "Contract Places", width: 150 },
-  { field: "educationForm", headerName: "Education Form", width: 150 },
-  { field: "faculty", headerName: "Faculty", width: 200 },
+  { field: "name", headerName: "Назва", width: 200 },
+  { field: "number", headerName: "Номер", width: 100 },
+  { field: "faculty", headerName: "Факультет", width: 200 },
+  { field: "coursesQuantity", headerName: "Кількість курсів", width: 150 },
+  { field: "price", headerName: "Ціна за курс", width: 100 },
+  { field: "totalPlaces", headerName: "Кількість мість", width: 130 },
+  { field: "budgetPlaces", headerName: "На бюджет ", width: 130 },
+  { field: "contractPlaces", headerName: "На контракт", width: 150 },
+  { field: "educationForm", headerName: "Форма навчання", width: 150 },
 ];
 
-const SpecialtiesTable = () => {
-  const { setSpecialty } = useCreateApplicationStore();
+const getAllSpecialties = (faculties) => {
+  return faculties.reduce((acc, faculty) => {
+    const specialtiesWithFaculty = faculty.specialties.map((specialty) => ({
+      ...specialty,
+      faculty: faculty.name,
+    }));
+    return acc.concat(specialtiesWithFaculty);
+  }, []);
+};
 
+const SpecialtiesTable = () => {
+  const [faculties, setFaculties] = useState([]);
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const { setSpecialty } = useCreateApplicationStore();
 
-  const faculties = [...new Set(specialities.map((item) => item.faculty))];
+  useEffect(() => {
+    facultyService.getFaculties().then((data) => {
+      setFaculties(data);
+    });
+  }, []);
 
   useEffect(() => {
     if (rowSelectionModel.length > 0) {
@@ -33,6 +46,11 @@ const SpecialtiesTable = () => {
     }
   }, [rowSelectionModel, setSpecialty]);
 
+  const facultiesOptions =
+    faculties && faculties.map((faculty) => faculty.name);
+
+  const specialties = getAllSpecialties(faculties);
+
   return (
     <Stack spacing={4}>
       <Typography variant="h5">Виберіть спеціальність</Typography>
@@ -40,10 +58,11 @@ const SpecialtiesTable = () => {
       <Autocomplete
         value={selectedFaculty}
         id="faculty-select"
-        options={faculties}
+        options={facultiesOptions}
         onChange={(event, newValue) => {
           setSelectedFaculty(newValue);
         }}
+        loading={faculties.length === 0}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -59,10 +78,8 @@ const SpecialtiesTable = () => {
           <DataGrid
             rows={
               selectedFaculty
-                ? specialities.filter(
-                    (item) => item.faculty === selectedFaculty
-                  )
-                : specialities
+                ? specialties.filter((item) => item.faculty === selectedFaculty)
+                : specialties
             }
             columns={columns}
             hideFooterPagination

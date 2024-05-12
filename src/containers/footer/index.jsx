@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <Box sx={{ p: 3, backgroundColor: "grey.300", mt: "auto" }}>
       <Typography variant="body1" align="center">
-        © 2024 Yulia Education
+        Всі права захищені © 2024
       </Typography>
     </Box>
   );

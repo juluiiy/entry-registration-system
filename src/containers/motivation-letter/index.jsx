@@ -1,5 +1,7 @@
 import { Box, Typography } from "@mui/material";
+
 import FileEditor from "../../components/file-editor";
+
 import { useCreateApplicationStore } from "../../store/createApplication";
 
 const MotivationLetter = () => {

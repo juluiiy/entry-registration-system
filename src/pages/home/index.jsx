@@ -1,23 +1,36 @@
-import { Box, Button, Typography } from "@mui/material";
-import ApplicationTable from "../../containers/application-table";
+import { Box, Button, Link, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import { styles } from "./styles";
+
+import ApplicationTable from "../../containers/application-table";
 import CreateNmtInfo from "../../containers/create-nmt-info";
 import { useUserStore } from "../../store/user";
-import { Link } from "react-router-dom";
+import { styles } from "./styles";
 
 const Home = () => {
   const { user } = useUserStore();
 
   const applicationsOrLink = user.applications.length ? (
     <>
-      <Typography variant="h5"> Список поданих заявок</Typography>
+      <Typography variant="h5" textAlign="center">
+        Список поданих заявок
+      </Typography>
       <ApplicationTable rows={user.applications} />
+      {user.applications.length < 5 ? (
+        <Link href="/create-application" sx={styles.createApplicationButton}>
+          <Button sx={styles.createApplicationButton} variant="contained">
+            Створити ще 1 заявку
+          </Button>
+        </Link>
+      ) : (
+        <Typography variant="h6" color="primary" textAlign="center">
+          Ви подали максимальну кількість заявок
+        </Typography>
+      )}
     </>
   ) : (
     <Box sx={styles.noApplications}>
       <Typography variant="h5">Ви ще не подали жодної заявки</Typography>
-      <Link to="create-application">
+      <Link href="/create-application">
         <Button variant="outlined" size="large">
           Зробіть це!
         </Button>

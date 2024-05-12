@@ -11,6 +11,11 @@ export const styles = {
     pt: "100px",
     pb: "50px",
   },
+  auth: {
+    flexGrow: 1,
+    bgcolor: "#f7f7f7",
+    py: "50px",
+  },
   container: {
     bgcolor: "white",
     minHeight: "650px",

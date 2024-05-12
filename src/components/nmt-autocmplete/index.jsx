@@ -1,32 +1,18 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
+
 import { useCreateApplicationStore } from "../../store/createApplication";
 
-const nmtResults = [
-  {
-    name: "Математика",
-    value: "100",
-  },
-  {
-    name: "Фізика",
-    value: "100",
-  },
-  {
-    name: "Іноземна мова",
-    value: "100",
-  },
-  {
-    name: "Українська мова",
-    value: "100",
-  },
-];
-
 const NmtAutocomplete = ({ value }) => {
-  console.log(value, "auto");
   const { setNmtResults, application, nmtError } = useCreateApplicationStore();
-  console.log(nmtResults, "auto");
+
   const handleNmtChange = (event, newValue) => {
     setNmtResults(newValue);
   };
+  const removeIdFromOptions = (options) => {
+    return options.map(({ id, ...rest }) => rest);
+  };
+
+  const optionsWithoutId = removeIdFromOptions(value);
 
   return (
     <Stack spacing={1}>
@@ -34,7 +20,7 @@ const NmtAutocomplete = ({ value }) => {
       <Autocomplete
         multiple
         id="tags-standard"
-        options={value[0]}
+        options={optionsWithoutId}
         value={application.nmtResults}
         onChange={handleNmtChange}
         getOptionLabel={(option) => `${option.name} - ${option.value}`}
